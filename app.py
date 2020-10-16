@@ -83,7 +83,7 @@ def main():
                          ['All', 'Level 1', 'Level 2', 'Level 3'], default=['All'])
         run_gender(gender_filters, level_filters)
 
-        st.sidebar.markdown("<small>\n\n\n\nIndividual data can be seen by hovering over the plots themselves, which can also be used to toggle datasets on or off by holding shift to select.</small>", unsafe_allow_html=True,)
+        st.sidebar.markdown("<small>*Individual data can be seen by hovering over the plots themselves, which can also be used to toggle datasets on or off by holding shift to select.*</small>", unsafe_allow_html=True,)
 
 # ----------------------Define data elements----------------------
 
