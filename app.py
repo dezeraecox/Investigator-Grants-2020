@@ -4,9 +4,11 @@ import altair as alt
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib
 import altair_catplot as altcat
 import geopandas
 import json
+import seaborn as sns
 
 # Streamlit encourages well-structured code, like starting execution in a main() function.
 def main():
@@ -22,9 +24,7 @@ def main():
             padding-bottom: 10rem;
         }}
     </style>
-    """,
-            unsafe_allow_html=True,
-        )
+    """, unsafe_allow_html=True,)
 
 
     # # Render the readme as markdown using st.markdown.
@@ -423,9 +423,9 @@ def plot_gender(df):
     height=200,
     )
 
-    st.write((bars | total_amount | proportion_total_funded + line | proportion_gender_funded))
-    # st.altair_chart(bars| total_amount)
-    # st.altair_chart(proportion_total_funded + line | proportion_gender_funded)
+    # st.altair_chart((bars | total_amount | proportion_total_funded + line | proportion_gender_funded), use_container_width=True)
+    st.altair_chart(bars| total_amount, use_container_width=True)
+    st.altair_chart(proportion_total_funded + line | proportion_gender_funded, use_container_width=True)
 
 
 def plot_title_summary(df):
@@ -452,7 +452,7 @@ def plot_title_summary(df):
         'type_cat', title='Proportion of awards')]
         ).interactive().properties(width=900, height=200)
 
-    st.write(summary_bars)
+    st.altair_chart(summary_bars, use_container_width=True)
 
 
 def plot_title_year(df, year):
@@ -488,7 +488,6 @@ def plot_title_year(df, year):
 
     fwci = altcat.catplot(source,
                 height=200,
-                width=800,
                 mark='point',
                 box_mark=dict(strokeWidth=2, opacity=0.6, color='lightgrey'),
                 whisker_mark=dict(strokeWidth=2, opacity=0.9, color='lightgrey'),
@@ -505,7 +504,6 @@ def plot_title_year(df, year):
 
     pubs = altcat.catplot(source,
                 height=200,
-                width=800,
                 mark='point',
                 box_mark=dict(strokeWidth=2, opacity=0.6, color='lightgrey'),
                 whisker_mark=dict(strokeWidth=2, opacity=0.9, color='lightgrey'),
@@ -519,9 +517,9 @@ def plot_title_year(df, year):
                                 ),
                 transform='jitterbox',
                 jitter_width=0.5)
-    st.write(proportion)
-    st.write(fwci.interactive(bind_y=False))
-    st.write(pubs.interactive(bind_y=False))
+    st.altair_chart(proportion, use_container_width=True)
+    st.altair_chart(fwci.interactive(bind_y=False), use_container_width=True)
+    st.altair_chart(pubs.interactive(bind_y=False), use_container_width=True)
 
 
 def plot_area_summary(df):
@@ -534,28 +532,51 @@ def plot_area_summary(df):
     # Prepare dataframe
     source = broad_proportion.copy()
 
-    # Colour scheme
-    colour_scheme = alt.Scale(
-        domain=('Basic Science', 'Clinical Medicine and Science', 'Health Services Research', 'Public Health'),
-        range=['#5d35f0', '#ab097d', '#cfa900', '#cf5d00'])
+    # # Colour scheme
+    # colour_scheme = alt.Scale(
+    #     domain=('Basic Science', 'Clinical Medicine and Science', 'Health Services Research', 'Public Health'),
+    #     range=['#5d35f0', '#ab097d', '#cfa900', '#cf5d00'])
 
-    # Chart 1: Summary proportions
-    bars = alt.Chart(source.reset_index()).mark_bar().encode(
-        x=alt.X('Broad Research Area:N', axis=alt.Axis(labels=False, title=' ')),
-        y=alt.Y('Field of Research:Q', axis=alt.Axis(title='Proportion of awards (%)')),
-        color=alt.Color('Broad Research Area:N', scale=colour_scheme),
-        column=alt.Column('Year:N', header=alt.Header(
-            labelAngle=0,
-            titleOrient='top',
-            labelOrient='bottom',
-            labelAlign='center',
-            labelPadding=3,), title=' '
-        ),
-        tooltip=[alt.Tooltip('Broad Research Area:N', title='Research Area'), alt.Tooltip(
-        'Field of Research:Q', title='Proportion of awards', format='.2f')]
-        ).properties(width=100, height=200).configure_view(stroke=None)
+    # # Chart 1: Summary proportions
+    # bars = alt.Chart(source.reset_index()).mark_bar().encode(
+    #     x=alt.X('Broad Research Area:N', axis=alt.Axis(labels=False, title=' ')),
+    #     y=alt.Y('Field of Research:Q', axis=alt.Axis(title='Proportion of awards (%)')),
+    #     color=alt.Color('Broad Research Area:N', scale=colour_scheme),
+    #     column=alt.Column('Year:N', header=alt.Header(
+    #         labelAngle=0,
+    #         titleOrient='top',
+    #         labelOrient='bottom',
+    #         labelAlign='center',
+    #         labelPadding=3,), title=' '
+    #     ),
+    #     tooltip=[alt.Tooltip('Broad Research Area:N', title='Research Area'), alt.Tooltip(
+    #     'Field of Research:Q', title='Proportion of awards', format='.2f')]
+    #     ).configure_view(stroke=None)
 
-    st.write(bars)
+    # st.altair_chart(bars.properties(width=50, height=200), use_container_width=True)
+
+
+    colour_scheme = {'Basic Science': '#5d35f0', 'Clinical Medicine and Science': '#ab097d', 'Health Services Research': '#cfa900', 'Public Health': '#cf5d00'}
+    font = {'family' : 'Microsoft Tai Le',
+    'weight' : 'normal',
+    'size'   : 28 }
+    matplotlib.rc('font', **font)
+    plt.rcParams['svg.fonttype'] = 'none'
+    fig, ax = plt.subplots(figsize=(20, 8))
+    sns.barplot(
+        x='Year',
+        y='Field of Research',
+        data=source.reset_index(),
+        hue='Broad Research Area',
+        palette=colour_scheme,
+        ax=ax
+    )
+    ax.set_ylabel('Proportion of awards (%)')
+    plt.legend(ncol=4, loc=9, prop={'size': 20})
+    plt.tight_layout()
+    plt.ylim(0, 55)
+
+    st.pyplot(fig, use_container_width=True)
 
     pass
 
@@ -603,7 +624,8 @@ def plot_area_year(df, year, area_filters='All'):
 
     kw_bubbles = bubbleplot(sample, scale=4000, title='Keywords')
 
-    st.write((for_bubbles | kw_bubbles).configure_axis(grid=False).configure_view(strokeWidth=0))
+    st.altair_chart((for_bubbles).configure_axis(grid=False).configure_view(strokeWidth=0), use_container_width=True)
+    st.altair_chart((kw_bubbles).configure_axis(grid=False).configure_view(strokeWidth=0), use_container_width=True)
 
 
 def plot_states(summary_df, locations_df, year, metric_filter='Success rate'):
@@ -636,7 +658,7 @@ def plot_states(summary_df, locations_df, year, metric_filter='Success rate'):
                             fields=[f'{metric_filter}'])
     )
 
-    st.write(map_plot)
+    st.altair_chart(map_plot, use_container_width=True)
 
     st.subheader(f'Total funding and awards in {year} by institution')
     
