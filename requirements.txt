@@ -5,3 +5,4 @@ matplotlib==3.3.2
 altair==4.1.0
 geopandas==0.8.1
 streamlit==0.67.1
+seaborn==0.11.0
