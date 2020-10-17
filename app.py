@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import matplotlib
 import altair_catplot as altcat
 import geopandas
+from PIL import Image
 import json
 import seaborn as sns
 
@@ -26,17 +27,41 @@ def main():
     </style>
     """, unsafe_allow_html=True,)
 
-
-    # # Render the readme as markdown using st.markdown.
-    # readme_text = st.markdown(get_file_content_as_string("instructions.md"))
     st.title("NHMRC Fellowship Funding Outcomes 2015 - 2020")
-
     # # Once we have the dependencies, add a selector for the app mode on the sidebar.
     st.sidebar.title("Navigation")
     app_mode = st.sidebar.selectbox("Which dataset would you like to explore?",
         [" ", "Research Area", "Geography", "Seniority", "Gender"])
 
-    if app_mode == "Research Area":
+    if app_mode == " ":
+            # # Render the readme as markdown using st.markdown.
+    # readme_text = st.markdown(get_file_content_as_string("instructions.md"))
+
+        st.markdown(
+            f"""
+            Welcome to Investigators2020! Here you will find interactive datasets underlying the NHMRC Fellowship Outcomes across four key metrics - Research area, Geography, Seniority and Gender. You can explore how the Fellowship scheme has evolved with time and what characteristics are typical of successful applications within each funding tier.
+
+            Each of the metrics can be accessed using the arrow to open the left sidebar, where you will also find instructions on how to interact with each of the datasets. In addition to various filter options, detailed metrics can be shown by hovering over individual datapoints within each plot. As with previous iterations of this analysis, the data is structured into funding tiers that align the pre- and post-2019 NHMRC schemes.
+            
+            For more details on how the data was collected and preprocessed, check out the resources below. If you have any other questions regarding the datasets themselves feel free to post an issue via the GitHub repository. Otherwise, happy exploring!
+
+            ## **Resources**
+
+            - The original data was sourced from the **[NHMRC website](https://www.nhmrc.gov.au/funding/data-research/outcomes-funding-rounds)**
+            - For more on the initial guidelines provided during the scheme restructure, check out the **[NHMRC Factsheet](https://nhmrc.govcms.gov.au/about-us/resources/investigator-grants-2019-outcomes-factsheet)**
+            - Author track record information, including publication number and field-weighted citation impact, were collected from **[SciVal](https://www.scival.com/)**. If you are considering an application in the upcoming round, it’s a great idea to benchmark yourself against previous successful applicants.
+
+            - For more info on the specific number crunching and data visualisation techniques used here, check out my 2019 **[Behind the scenes](https://github.com/dezeraecox/Behind-the-scenes---Investigator-Grants-2019)** post.
+
+            - For a summary of the scheme outcomes in 2020, and especially the outlook for ECRs, check out my recent article in [**Research Professional News**](https://www.researchprofessionalnews.com/rr-funding-insight-2020-9-emerging-researchers-face-uphill-struggle-at-nhmrc/)
+
+            <small>*Disclaimer: the information contained here was intended to inform my personal decision of whether to apply for an Investigator Grant in the upcoming rounds. It is not intended as a complete, in-depth assessment of the outcomes. Therefore, the information contained here and in the original articles is provided on an “as is” basis with no guarantees of completeness, accuracy, usefulness or timeliness. Any action you take as a result of this information is done so at your own peril. If you do decide to act on this information, I wish you the best of luck whichever path you may choose. May the odds be ever in your favour.*</small>
+                
+                    """, unsafe_allow_html=True
+                )
+
+
+    elif app_mode == "Research Area":
         st.sidebar.markdown("By default, all data is displayed for 2020. To explore individual research themes,  remove the ```All``` filter below and select filter(s) of interest then drag the slider to select a year.")
 
         area_filters = st.sidebar.multiselect("Which theme would you like to display?", ['All', 'Basic Science', 'Clinical Medicine and Science', 'Health Services Research', 'Public Health'], default='All')
@@ -52,7 +77,7 @@ def main():
     
 
     elif app_mode == "Geography":
-        st.sidebar.markdown("By default, success rate is displayed for 2020. To explore other metrics and years, select the filter of interest then drag the slider to select a year.")
+        st.sidebar.markdown("By default, success rate is displayed for 2020. To explore other metrics and years, select the filter of interest then drag the slider to select a year. Metrics according to specific research institutions are provided in a detailed table below.")
 
         metric_filter = st.sidebar.selectbox("Which metric would you like to display?", ['Success rate', 'Number of awards', 'Total funding ($M)'])
 
@@ -102,7 +127,6 @@ def get_file_content_as_string(path):
     url = 'https://raw.githubusercontent.com/streamlit/demo-self-driving/master/' + path
     response = urllib.request.urlopen(url)
     return response.read().decode("utf-8")
-
 
 
 # ---------------------Define utility functions---------------------
@@ -671,25 +695,3 @@ def plot_states(summary_df, locations_df, year, metric_filter='Success rate'):
 
 if __name__ == "__main__":
     main()
-
-
-
-# source_path = f'python_results/streamlit/'
-
-
-# # Navigation Bar
-
-
-# # Page 1: total funding
-
-# fem_colour = '#511751'
-# male_colour = sns.color_palette("Oranges")[4]
-
-
-
-# options = st.multiselect('Select result type', df['type'].unique())
-# nationalities = st.multiselect('Show Player from Nationalities?', df['Nationality'].unique())
-# # Filter dataframe
-# new_df = df[(df['Club'].isin(clubs)) & (df['Nationality'].isin(nationalities))]
-# # write dataframe to screen
-# st.write(new_df)
