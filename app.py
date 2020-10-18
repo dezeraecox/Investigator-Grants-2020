@@ -41,14 +41,16 @@ def main():
             f"""
             Welcome to Investigators2020! Here you will find interactive datasets underlying the NHMRC Fellowship Outcomes across four key metrics - Research area, Geography, Seniority and Gender. You can explore how the Fellowship scheme has evolved with time and what characteristics are typical of successful applications within each funding tier.
 
-            Each of the metrics can be accessed using the arrow to open the left sidebar, where you will also find instructions on how to interact with each of the datasets. In addition to various filter options, detailed data can be shown by hovering over individual datapoints within the plots which can be interactively scaled by zooming in/out. As with previous iterations of this analysis, the data is structured into funding tiers that align the pre- and post-2019 NHMRC schemes.
-            
-            For more details on how the data was collected and preprocessed, check out the resources below. If you have any other questions regarding the datasets themselves feel free to post an issue via the [GitHub repository](https://github.com/dezeraecox). Otherwise, happy exploring!
+            Each of the metrics can be accessed using the arrow to open the left sidebar, where you will also find instructions on how to interact with each of the datasets. In addition to various filter options, detailed data can be shown by hovering over individual datapoints and most plots can be interactively scaled by zooming in/out. The data is structured into funding tiers that align the pre- and post-2019 NHMRC schemes. For more details on how the data was collected and preprocessed, check out the resources below. If you have any other questions feel free to post an issue via the [GitHub repository](https://github.com/dezeraecox). Otherwise, happy exploring!
+
+            <small>*Note: for comfortable viewing on mobile devices, rotating your devices to landscape is recommended!*</small>
 
             ## **Resources**
 
             - The original data was sourced from the [NHMRC website](https://www.nhmrc.gov.au/funding/data-research/outcomes-funding-rounds)
+            
             - For more on the initial guidelines provided during the scheme restructure, check out the [NHMRC Factsheet](https://nhmrc.govcms.gov.au/about-us/resources/investigator-grants-2019-outcomes-factsheet)
+
             - Author track record information, including publication number and field-weighted citation impact, were collected from [SciVal](https://www.scival.com/). If you are considering an application in the upcoming round, it’s a great idea to benchmark yourself against previous successful applicants.
 
             - For more info on the specific number crunching and data visualisation techniques used here, check out my 2019 [Behind the scenes](https://github.com/dezeraecox/Behind-the-scenes---Investigator-Grants-2019) post.
@@ -390,11 +392,10 @@ def plot_gender(df):
 
     source = df.copy()
     source['id'] = source['gender'] + '_' + source['type_cat'].astype(int).astype(str)
+    source['id'] = source['id'].map({'F_3': 'Female Level 3', 'F_2': 'Female Level 2', 'F_1': 'Female Level 1', 'M_3': 'Male Level 3', 'M_2': 'Male Level 2', 'M_1': 'Male Level 1', 'N_3': 'N.D. Level 3', 'N_2': 'N.D. Level 2', 'N_1': 'N.D. Level 1', })
 
-    colour_scheme = alt.Scale(domain=('F_3', 'F_2', 'F_1', 'M_3', 'M_2', 'M_1', 'N_3', 'N_2', 'N_1'),
-                      range=['#440063', '#852bad', '#c090d6', '#b35d12', '#de7f2c', '#f0b27d', '#404040', '#808080', '#b0b0b0'])
-
-
+    colour_scheme = alt.Scale(domain=('Female Level 3', 'Female Level 2', 'Female Level 1', 'Male Level 3', 'Male Level 2', 'Male Level 1', 'N.D. Level 3', 'N.D. Level 2', 'N.D. Level 1'), range=['#440063', '#852bad', '#c090d6', '#b35d12', '#de7f2c', '#f0b27d', '#404040', '#808080', '#b0b0b0'])
+    
     selector = alt.selection_multi(empty='all', fields=['id'])
 
     base = alt.Chart(source).add_selection(selector)
@@ -402,7 +403,7 @@ def plot_gender(df):
     bars = base.mark_bar().encode(
         x=alt.X('year:O', axis=alt.Axis(title='Year')),
         y=alt.Y('sum(funded):Q', axis=alt.Axis(title='Number of grants funded')),
-        color=alt.condition(selector, 'id:N', alt.value('lightgray'), scale=colour_scheme, legend=None),
+        color=alt.condition(selector, 'id:N', alt.value('lightgray'), scale=colour_scheme, legend=alt.Legend(title=' ')),
         tooltip=[alt.Tooltip('gender', title='Gender'), alt.Tooltip('type_cat', title='Funding Level'), alt.Tooltip('funded', title='Count')]
     ).interactive().properties(
     width=200,
@@ -448,7 +449,9 @@ def plot_gender(df):
     )
 
     # st.altair_chart((bars | total_amount | proportion_total_funded + line | proportion_gender_funded), use_container_width=True)
-    st.altair_chart(bars| total_amount, use_container_width=True)
+    st.altair_chart((bars| total_amount).configure_legend(
+    orient='right'
+    ), use_container_width=True)
     st.altair_chart(proportion_total_funded + line | proportion_gender_funded, use_container_width=True)
 
 
