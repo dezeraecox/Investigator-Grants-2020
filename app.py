@@ -15,17 +15,15 @@ import seaborn as sns
 def main():
 
     st.markdown(
-            f"""
+        """
     <style>
-        .reportview-container .main .block-container{{
-            max-width: 2000px;
-            padding-top: 1rem;
-            padding-right: 10rem;
-            padding-left: 10rem;
-            padding-bottom: 10rem;
-        }}
-    </style>
-    """, unsafe_allow_html=True,)
+    canvas {
+        max-width: 100%!important;
+        height: auto!important;
+    }
+        </style>
+        """, unsafe_allow_html=True
+    )
 
     st.title("NHMRC Fellowship Funding Outcomes 2015 - 2020")
     # # Once we have the dependencies, add a selector for the app mode on the sidebar.
@@ -48,7 +46,7 @@ def main():
             ## **Resources**
 
             - The original data was sourced from the [NHMRC website](https://www.nhmrc.gov.au/funding/data-research/outcomes-funding-rounds)
-            
+
             - For more on the initial guidelines provided during the scheme restructure, check out the [NHMRC Factsheet](https://nhmrc.govcms.gov.au/about-us/resources/investigator-grants-2019-outcomes-factsheet)
 
             - Author track record information, including publication number and field-weighted citation impact, were collected from [SciVal](https://www.scival.com/). If you are considering an application in the upcoming round, it’s a great idea to benchmark yourself against previous successful applicants.
