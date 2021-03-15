@@ -16,7 +16,7 @@ def main():
 
     # Set a pp title and icon for browser tab
     favicon = Image.open('utilities/icon.png')
-    st.set_page_config(page_title='Investigators', page_icon = favicon, layout = 'wide', initial_sidebar_state = 'auto')
+    st.beta_set_page_config(page_title='Investigators', page_icon = favicon, layout = 'wide', initial_sidebar_state = 'auto')
 
     st.markdown(
         """
