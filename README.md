@@ -2,6 +2,10 @@
 
 This repository contains source code for analysis of the NHMRC Fellowship scheme outcomes 2015 - 2020. This work also supported the analysis described in "[Emerging researchers face uphill struggle at NHMRC](https://www.researchprofessionalnews.com/rr-funding-insight-2020-9-emerging-researchers-face-uphill-struggle-at-nhmrc/)", originally published on September 18th 2020.
 
+## Getting started
+
+To learn more about the rationale and analyses behind this repository, you can find a brief introduction [here](https://dezeraecox.com/investigators-2020/). Just want to get your hands on the data? Head straight on over to the app at [Investigators2020.herokuapp.com](http://investigators2020.herokuapp.com/).
+
 ## Raw data
 
 The raw data used in this analysis came from three main sources.
@@ -14,6 +18,6 @@ The last source of data was Scival, which I used to gather the number of researc
 
 ## Disclaimer
 
-This analysis was intended to inform my personal decision of whether to apply for an Investigator Grant in the upcoming rounds. It is not intended as a complete, in-depth assessment of the outcomes. Therefore, the information contained here and in the original post is provided on an “as is” basis with no guarantees of completeness, accuracy, usefulness or timeliness. Any action you take as a result of this information is done so at your own peril. If you do decide to act on this information, I wish you the best of luck whichever path you may choose. May the odds be ever in your favour.
+*This analysis was intended to inform my personal decision of whether to apply for an Investigator Grant in the upcoming rounds. It is not intended as a complete, in-depth assessment of the outcomes. Therefore, the information contained here and in the original post is provided on an “as is” basis with no guarantees of completeness, accuracy, usefulness or timeliness. Any action you take as a result of this information is done so at your own peril. If you do decide to act on this information, I wish you the best of luck whichever path you may choose. May the odds be ever in your favour.*
 
-This being said, I have of course aimed to be as unbiased and informative as possible. I have limited experience in data-science-for-public-consumption, so if you do notice any overt errors or bugs feel free to raise an issue and I will check it out as soon as possible.
+*his being said, I have of course aimed to be as unbiased and informative as possible. I have limited experience in data-science-for-public-consumption, so if you do notice any overt errors or bugs feel free to raise an issue and I will check it out as soon as possible.*
