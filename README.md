@@ -1,4 +1,7 @@
-# Behind the scenes - Investigators2020
+<p align='center'>
+<img src='utilities/banner.png'>
+</p>
+
 
 This repository contains source code for analysis of the NHMRC Fellowship scheme outcomes 2015 - 2020. This work also supported the analysis described in "[Emerging researchers face uphill struggle at NHMRC](https://www.researchprofessionalnews.com/rr-funding-insight-2020-9-emerging-researchers-face-uphill-struggle-at-nhmrc/)", originally published on September 18th 2020.
 

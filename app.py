@@ -14,6 +14,10 @@ import seaborn as sns
 # Streamlit encourages well-structured code, like starting execution in a main() function.
 def main():
 
+    # Set a pp title and icon for browser tab
+    favicon = Image.open('utilities/icon.png')
+    st.set_page_config(page_title='Investigators', page_icon = favicon, layout = 'wide', initial_sidebar_state = 'auto')
+
     st.markdown(
         """
     <style>
@@ -25,8 +29,10 @@ def main():
         """, unsafe_allow_html=True
     )
 
-    st.title("NHMRC Fellowship Funding Outcomes 2015 - 2020")
+    # st.title("NHMRC Fellowship Funding Outcomes 2015 - 2020")
     # # Once we have the dependencies, add a selector for the app mode on the sidebar.
+
+    logo_box = st.sidebar.empty()
     st.sidebar.title("Navigation")
     app_mode = st.sidebar.selectbox("Which dataset would you like to explore?",
         [" ", "Research Area", "Geography", "Seniority", "Gender"])
@@ -34,6 +40,9 @@ def main():
     if app_mode == " ":
             # # Render the readme as markdown using st.markdown.
     # readme_text = st.markdown(get_file_content_as_string("instructions.md"))
+        st.markdown("# Time to start ")
+        image = Image.open('utilities/banner.png')
+        st.image(image)
 
         st.markdown(
             f"""
@@ -55,13 +64,15 @@ def main():
 
             - For a summary of the scheme outcomes in 2020, and especially the outlook for ECRs, check out my recent article in [Research Professional News](https://www.researchprofessionalnews.com/rr-funding-insight-2020-9-emerging-researchers-face-uphill-struggle-at-nhmrc/)
 
-            <small>*Disclaimer: the information contained here was intended to inform my personal decision of whether to apply for an Investigator Grant in the upcoming rounds. It is not intended as a complete, in-depth assessment of the outcomes. Therefore, the information contained here and in the original articles is provided on an “as is” basis with no guarantees of completeness, accuracy, usefulness or timeliness. Any action you take as a result of this information is done so at your own peril. If you do decide to act on this information, I wish you the best of luck whichever path you may choose. May the odds be ever in your favour.*</small>
+            <small>*Disclaimer: the information contained here was intended to inform my personal decision of whether to apply for an Investigator Grant in the upcoming rounds.The information contained here is provided on an “as is” basis with no guarantees of completeness, accuracy, usefulness or timeliness. Any action you take as a result of this information is done so at your own peril. If you do decide to act on this information, however, I wish you the best of luck whichever path you may choose. May the odds be ever in your favour.*</small>
                 
                     """, unsafe_allow_html=True
                 )
 
 
     elif app_mode == "Research Area":
+        logo_box.image(Image.open('utilities/banner.png'))
+
         st.sidebar.markdown("By default, all data is displayed for 2020. To explore individual research themes,  remove the ```All``` filter below and select filter(s) of interest then drag the slider to select a year.")
 
         area_filters = st.sidebar.multiselect("Which theme would you like to display?", ['All', 'Basic Science', 'Clinical Medicine and Science', 'Health Services Research', 'Public Health'], default='All')
@@ -77,6 +88,8 @@ def main():
     
 
     elif app_mode == "Geography":
+        logo_box.image(Image.open('utilities/banner.png'))
+
         st.sidebar.markdown("By default, success rate is displayed for 2020. To explore other metrics and years, select the filter of interest then drag the slider to select a year. Metrics according to specific research institutions are provided in a detailed table below.")
 
         metric_filter = st.sidebar.selectbox("Which metric would you like to display?", ['Success rate', 'Number of awards', 'Total funding ($M)'])
@@ -87,6 +100,8 @@ def main():
 
     
     elif app_mode == "Seniority":
+        logo_box.image(Image.open('utilities/banner.png'))
+
         st.sidebar.markdown("A summary of the seniority trends are shown in the first plot. To explore individual award levels more specifically, use the slider to select a year of interest.")
 
         year = st.sidebar.select_slider("Which year would you like to display?", options=[2015, 2016, 2017, 2018, 2019, 2020], value=2020)
@@ -100,6 +115,8 @@ def main():
     
 
     elif app_mode == "Gender":
+        logo_box.image(Image.open('utilities/banner.png'))
+
         st.sidebar.markdown("By default, all data is displayed. To explore individual combinations, remove the ```All``` filter below and select filters of interest.")
 
         gender_filters = st.sidebar.multiselect("Which gender would you like to display?", 
