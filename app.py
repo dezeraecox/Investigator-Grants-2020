@@ -46,25 +46,39 @@ def main():
 
         st.markdown(
             f"""
-            Welcome to Investigators2020! Here you will find interactive datasets underlying the NHMRC Fellowship Outcomes across four key metrics - Research area, Geography, Seniority and Gender. You can explore how the Fellowship scheme has evolved with time and what characteristics are typical of successful applications within each funding tier.
+            Welcome to Investigators2020, where it's time to don your very best Sherlock Holmes hat and magnifying glass because now the data is in your hands! 
+            
+            Nestled among these pages you will find interactive datasets underlying the NHMRC Fellowship Outcomes across four key metrics - Research area, Geography, Seniority and Gender. Toggle different parameters on and off to explore how the Fellowship scheme has evolved with time and what characteristics are typical of successful applications within each funding tier.
+            """)
+        getting_started = st.beta_expander("Getting started", expanded=False)
+        with getting_started:
+            st.markdown(
+            f"""
+            Each of the metrics can be accessed using the left navigation pane, where you will also find instructions on how to interact with each of the datasets. In addition to various filter options, detailed data can be shown by hovering over individual datapoints and most plots can be interactively scaled by zooming in/out. 
+            
+            The data is structured into funding tiers that align the pre- and post-2019 NHMRC schemes. For more details on how the data was collected and preprocessed, check out the resources below. If you have any other questions feel free to post an issue via the [GitHub repository](https://github.com/dezeraecox). Otherwise, happy exploring!
 
-            Each of the metrics can be accessed using the arrow to open the left sidebar, where you will also find instructions on how to interact with each of the datasets. In addition to various filter options, detailed data can be shown by hovering over individual datapoints and most plots can be interactively scaled by zooming in/out. The data is structured into funding tiers that align the pre- and post-2019 NHMRC schemes. For more details on how the data was collected and preprocessed, check out the resources below. If you have any other questions feel free to post an issue via the [GitHub repository](https://github.com/dezeraecox). Otherwise, happy exploring!
-
-            <small>*Note: for comfortable viewing on mobile devices, rotating your devices to landscape is recommended!*</small>
-
-            ## **Resources**
-
+            """)
+        resources = st.beta_expander("Resources", expanded=False)
+        with resources:
+            st.markdown(
+            f"""
             - The original data was sourced from the [NHMRC website](https://www.nhmrc.gov.au/funding/data-research/outcomes-funding-rounds)
 
             - For more on the initial guidelines provided during the scheme restructure, check out the [NHMRC Factsheet](https://nhmrc.govcms.gov.au/about-us/resources/investigator-grants-2019-outcomes-factsheet)
 
             - Author track record information, including publication number and field-weighted citation impact, were collected from [SciVal](https://www.scival.com/). If you are considering an application in the upcoming round, it’s a great idea to benchmark yourself against previous successful applicants.
 
-            - For more info on the specific number crunching and data visualisation techniques used here, check out my 2019 [Behind the scenes](https://github.com/dezeraecox/Behind-the-scenes---Investigator-Grants-2019) post.
+            - For more info on the specific number crunching and data visualisation techniques used here, check out my 2019 [Behind the scenes](https://github.com/dezeraecox/Behind-the-scenes---Investigator-Grants-2019) code and summary [post](https://dezeraecox.com/investigating-the-investigator-grants-2019/).
 
-            - For a summary of the scheme outcomes in 2020, and especially the outlook for ECRs, check out my recent article in [Research Professional News](https://www.researchprofessionalnews.com/rr-funding-insight-2020-9-emerging-researchers-face-uphill-struggle-at-nhmrc/)
+            - For a summary of the scheme outcomes in 2020, and especially the outlook for ECRs, check out  [Research Professional News](https://www.researchprofessionalnews.com/rr-funding-insight-2020-9-emerging-researchers-face-uphill-struggle-at-nhmrc/)
 
-            <small>*Disclaimer: the information contained here was intended to inform my personal decision of whether to apply for an Investigator Grant in the upcoming rounds.The information contained here is provided on an “as is” basis with no guarantees of completeness, accuracy, usefulness or timeliness. Any action you take as a result of this information is done so at your own peril. If you do decide to act on this information, however, I wish you the best of luck whichever path you may choose. May the odds be ever in your favour.*</small>
+            """)
+        disclaimer = st.beta_expander("Disclaimer", expanded=False)
+        with disclaimer:
+            st.markdown(
+            f"""
+            <small>*The information contained here was intended to inform my personal decision of whether to apply for an Investigator Grant in the upcoming rounds.The information is provided on an “as is” basis with no guarantees of completeness, accuracy, usefulness or timeliness. Any action you take as a result of this information is done so at your own peril. If you do decide to act on this information, however, I wish you the best of luck with whichever path you may choose. May the odds be ever in your favour...*</small>
                 
                     """, unsafe_allow_html=True
                 )
