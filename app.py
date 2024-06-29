@@ -10,6 +10,7 @@ import geopandas
 from PIL import Image
 import json
 import seaborn as sns
+import urllib
 
 # Streamlit encourages well-structured code, like starting execution in a main() function.
 def main():
@@ -50,7 +51,7 @@ def main():
             
             Nestled among these pages you will find interactive datasets underlying the NHMRC Fellowship Outcomes across four key metrics - Research area, Geography, Seniority and Gender. Toggle different parameters on and off to explore how the Fellowship scheme has evolved with time and what characteristics are typical of successful applications within each funding tier.
             """)
-        getting_started = st.beta_expander("Getting started", expanded=False)
+        getting_started = st.expander("Getting started", expanded=False)
         with getting_started:
             st.markdown(
             f"""
@@ -59,7 +60,7 @@ def main():
             The data is structured into funding tiers that align the pre- and post-2019 NHMRC schemes. For more details on how the data was collected and preprocessed, check out the resources below. If you have any other questions feel free to post an issue via the [GitHub repository](https://github.com/dezeraecox). Otherwise, happy exploring!
 
             """)
-        resources = st.beta_expander("Resources", expanded=False)
+        resources = st.expander("Resources", expanded=False)
         with resources:
             st.markdown(
             f"""
@@ -74,7 +75,7 @@ def main():
             - For a summary of the scheme outcomes in 2020, and especially the outlook for ECRs, check out  [Research Professional News](https://www.researchprofessionalnews.com/rr-funding-insight-2020-9-emerging-researchers-face-uphill-struggle-at-nhmrc/)
 
             """)
-        disclaimer = st.beta_expander("Disclaimer", expanded=False)
+        disclaimer = st.expander("Disclaimer", expanded=False)
         with disclaimer:
             st.markdown(
             f"""
